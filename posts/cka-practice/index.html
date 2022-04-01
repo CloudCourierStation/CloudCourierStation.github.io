@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  dir="ltr"
+  
+><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<title>CKA模拟器练习题 | 云原生驿站</title>
+
+<meta name="generator" content="Hugo Eureka 0.9.1" />
+<link rel="stylesheet" href="/css/eureka.min.6a378a23360d238dc3ef4df2f5cd718093f02c10c9c7eb2437c29701cd8d389ab6da5d9f21bdd3afa305fd56c1235017.css" integrity="sha384-ajeKIzYNI43D703y9c1xgJPwLBDJx&#43;skN8KXAc2NOJq22l2fIb3Tr6MF/VbBI1AX">
+<script defer src="/js/eureka.min.f1639ee98d6cbd85b2b5f034d27320da962002ff83159ed4e01dbc5948c42a1ab26c2d6e74c66e93f5cec4d24dbd166d.js" integrity="sha384-8WOe6Y1svYWytfA00nMg2pYgAv&#43;DFZ7U4B28WUjEKhqybC1udMZuk/XOxNJNvRZt"></script>
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload"
+  href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Noto+Serif+SC:wght@400;600;700&display=swap"
+  as="style" onload="this.onload=null;this.rel='stylesheet'">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/base16/solarized-light.min.css"
+   media="print"
+  onload="this.media='all';this.onload=null" crossorigin>
+<script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/highlight.min.js"
+   crossorigin></script>
+  <script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/languages/dart.min.js"
+     crossorigin></script>
+
+
+<script defer type="text/javascript" src="/js/fontawesome.min.556d8a720c2607066000ad1cb5cbdc4da8e61b339cf7b111c2cea521185d942db885a421557699c1c26cddd4ea8a76b2.js" integrity="sha384-VW2KcgwmBwZgAK0ctcvcTajmGzOc97ERws6lIRhdlC24haQhVXaZwcJs3dTqinay"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.css"
+   integrity="sha384-MlJdn/WNKDGXveldHDdyRP1R4CTHr3FeuDNfhsLPYrq2t0UBkUdK2jyTnXPEK1NQ"  media="print"
+  onload="this.media='all';this.onload=null" crossorigin>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.js" 
+  integrity="sha384-VQ8d8WVFw0yHhCk5E8I86oOhv48xLpnDZx5T9GogA/Y84DcCKWXDmSDfn13bzFZY"  crossorigin></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/contrib/auto-render.min.js"
+   integrity="sha384-&#43;XBljXPPiv&#43;OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR"  crossorigin></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "$", right: "$", display: false },
+        { left: "\\(", right: "\\)", display: false },
+        { left: "\\[", right: "\\]", display: true }
+      ],
+    });
+  });
+</script>
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/mermaid@8.14.0/dist/mermaid.min.js" 
+  integrity="sha384-atOyb0FxAgN9LyAc6PEf9BjgwLISyansgdH8/VXQH8p2o5vfrRgmGIJ2Sg22L0A0"  crossorigin></script>
+
+
+<link rel="icon" type="image/png" sizes="32x32" href="/images/icon_hu64421c6c7700f606f0ad45d807017b09_5843_32x32_fill_box_center_3.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/icon_hu64421c6c7700f606f0ad45d807017b09_5843_180x180_fill_box_center_3.png">
+
+<meta name="description"
+  content="购买CKA考试赠送的模拟器的练习题">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+      "@type": "ListItem",
+      "position": 1 ,
+      "name":"Posts",
+      "item":"/posts/"},{
+      "@type": "ListItem",
+      "position": 2 ,
+      "name":"CKA模拟器练习题",
+      "item":"/posts/cka-practice/"}]
+}
+</script>
+
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "/posts/cka-practice/"
+    },
+    "headline": "CKA模拟器练习题 | 云原生驿站","datePublished": "2022-03-29T00:00:00+00:00",
+    "dateModified": "2022-04-02T00:00:00+00:00",
+    "wordCount":  1102 ,
+    "author": {
+        "@type": "Person",
+        "name": ["云原生驿站"]
+    },
+    "publisher": {
+        "@type": "Person",
+        "name": "WANG Chucheng",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "/images/icon.png"
+        }
+        },
+    "description": "购买CKA考试赠送的模拟器的练习题"
+}
+</script><meta property="og:title" content="CKA模拟器练习题 | 云原生驿站" />
+<meta property="og:type" content="article" />
+
+
+<meta property="og:image" content="/images/icon.png">
+
+
+<meta property="og:url" content="/posts/cka-practice/" />
+
+
+
+<meta property="og:description" content="购买CKA考试赠送的模拟器的练习题" />
+
+
+
+<meta property="og:locale" content="en" />
+
+
+
+
+<meta property="og:site_name" content="云原生驿站" />
+
+
+
+
+
+
+<meta property="article:published_time" content="2022-03-29T00:00:00&#43;00:00" />
+
+
+<meta property="article:modified_time" content="2022-04-02T00:00:00&#43;00:00" />
+
+
+
+<meta property="article:section" content="posts" />
+
+
+<meta property="article:tag" content="kubernetes" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <body class="flex min-h-screen flex-col">
+    <header
+      class="min-h-16 pl-scrollbar bg-secondary-bg fixed z-50 flex w-full items-center shadow-sm"
+    >
+      <div class="mx-auto w-full max-w-screen-xl"><script>
+    let storageColorScheme = localStorage.getItem("lightDarkMode")
+    if (((storageColorScheme == 'Auto' || storageColorScheme == null) && window.matchMedia("(prefers-color-scheme: dark)").matches) || storageColorScheme == "Dark") {
+        document.getElementsByTagName('html')[0].classList.add('dark')
+    }
+</script>
+<nav class="flex items-center justify-between flex-wrap px-4 py-4 md:py-0">
+    <a href="/" class="me-6 text-primary-text text-xl font-bold">云原生驿站</a>
+    <button id="navbar-btn" class="md:hidden flex items-center px-3 py-2" aria-label="Open Navbar">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <div id="target"
+        class="hidden block md:flex md:grow md:justify-between md:items-center w-full md:w-auto text-primary-text z-20">
+        <div class="md:flex md:h-16 text-sm md:grow pb-4 md:pb-0 border-b md:border-b-0">
+            <a href="/#about" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  border-transparent  me-4">关于我</a>
+            <a href="/posts/" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  selected-menu-item  me-4">文章</a>
+            <a href="/docs/" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  border-transparent  me-4">文档</a>
+        </div>
+
+        <div class="flex">
+            <div class="relative pt-4 md:pt-0">
+                <div class="cursor-pointer hover:text-eureka" id="lightDarkMode">
+                    <i class="fas fa-adjust"></i>
+                </div>
+                <div class="fixed hidden inset-0 opacity-0 h-full w-full cursor-default z-30" id="is-open">
+                </div>
+                <div class="absolute flex flex-col start-0 md:start-auto end-auto md:end-0 hidden bg-secondary-bg w-48 rounded py-2 border border-tertiary-bg cursor-pointer z-40"
+                    id='lightDarkOptions'>
+                    <span class="px-4 py-1 hover:text-eureka" name="Light">Light</span>
+                    <span class="px-4 py-1 hover:text-eureka" name="Dark">Dark</span>
+                    <span class="px-4 py-1 hover:text-eureka" name="Auto">Auto</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="fixed hidden inset-0 opacity-0 h-full w-full cursor-default z-0" id="is-open-mobile">
+    </div>
+
+</nav>
+<script>
+    
+    let element = document.getElementById('lightDarkMode')
+    if (storageColorScheme == null || storageColorScheme == 'Auto') {
+        document.addEventListener('DOMContentLoaded', () => {
+            window.matchMedia("(prefers-color-scheme: dark)").addEventListener('change', switchDarkMode)
+        })
+    } else if (storageColorScheme == "Light") {
+        element.firstElementChild.classList.remove('fa-adjust')
+        element.firstElementChild.setAttribute("data-icon", 'sun')
+        element.firstElementChild.classList.add('fa-sun')
+    } else if (storageColorScheme == "Dark") {
+        element.firstElementChild.classList.remove('fa-adjust')
+        element.firstElementChild.setAttribute("data-icon", 'moon')
+        element.firstElementChild.classList.add('fa-moon')
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        getcolorscheme();
+        switchBurger();
+    });
+</script>
+</div>
+    </header>
+    <main class="grow pt-16">
+        <div class="pl-scrollbar">
+          <div class="mx-auto w-full max-w-screen-xl lg:px-4 xl:px-8">
+  
+  
+  <div class="grid grid-cols-2 gap-4 lg:grid-cols-8 lg:pt-12">
+    <div
+      class=" bg-secondary-bg col-span-2 rounded px-6 py-8 lg:col-span-6"
+    >
+      <article class="prose">
+  <h1 class="mb-4">CKA模拟器练习题</h1>
+
+  <div
+  class="text-tertiary-text not-prose mt-2 flex flex-row flex-wrap items-center"
+>
+  <div class="me-6 my-2">
+    <i class="fas fa-calendar me-1"></i>
+    <span
+      >2022-03-29</span
+    >
+  </div>
+  <div class="me-6 my-2">
+    <i class="fas fa-clock me-1"></i>
+    <span>6 min read</span>
+  </div>
+
+  
+    <div class="me-6 my-2">
+      <i class="fas fa-folder me-1"></i>
+      
+        <a href="/categories/cka/" class="hover:text-eureka"
+          >CKA</a
+        >
+      
+        
+          <span>, </span>
+        <a href="/categories/kubernetes/" class="hover:text-eureka"
+          >kubernetes</a
+        >
+      
+    </div>
+  
+
+  
+    <div class="me-6 my-2">
+      <i class="fas fa-th-list me-1"></i>
+      
+        <a href="/series/kubernetes/" class="hover:text-eureka"
+          >kubernetes</a
+        >
+      
+    </div>
+  
+</div>
+
+
+  
+  
+
+  <h1 id="cka-practice">CKA practice</h1>
+<h2 id="storage-secret-use">Storage ：Secret Use</h2>
+<blockquote>
+<p>stay  <code>secret</code> Under the namespace , Mirror image  <code>busybox:1.31.1</code> Create a file called  <code>secret-pod</code> Of pod, And guarantee that pod Run for a while</p>
+</blockquote>
+<blockquote>
+<p>A name is  <code>sercret1.yaml</code> Of Secret file , stay  <code>secret</code> Create under the namespace Secret, And in a read-only way to Pod Of  <code>/tmp/secret1</code> Catalog Create a new Secret <code>secret2</code> contain  <code>user=user1</code> and  <code>pass=1234</code>, To alleviate the variables  <code>APP_USER</code> and  <code>APP_PASS</code> Input to Pod in</p>
+</blockquote>
+<h2 id="the-workload--static-state-pod">The workload ： static state Pod</h2>
+<blockquote>
+<p>stay  <code>cluster3-master1</code> Upper  <code>default</code> Create a namespace named  <code>my-static-pod</code> Static Pod. Mirror image  <code>nginx:1.16-alpine</code> And assign 10m CPU and 20Mi Memory resources .</p>
+</blockquote>
+<blockquote>
+<p>Then create a NodePort Service named static-pod-service which exposes that static Pod on port 80 and check if it has Endpoints and if its reachable through the cluster3-master1 internal IP address. You can connect to the internal node IPs from your main terminal. Then create a new one called <code>static-pod-service</code> Of NodePort Service, The service is on Port 80 The static Pod, And check that it has endpoints and can pass through  <code>cluster3-master1</code> Inside IP Address to access it .</p>
+</blockquote>
+<h2 id="dispatch--stain-and-tolerance">Dispatch ： Stain and tolerance</h2>
+<blockquote>
+<p>In namespace  <code>default</code> Create an image in  <code>httpd:2.4.41-alpine</code> The individual Pod.Pod Should be named  <code>pod1</code>, The container name is  <code>pod1-container</code>. Without adding new labels to any nodes , Will be pod Schedule to master .</p>
+</blockquote>
+<h2 id="kubectl-command-and-sort">kubectl Command and sort</h2>
+<blockquote>
+<p>There are all sorts of Pod. Write command to /opt/course/5/find_pods.sh, It lists all by AGE Sort of Pod（metadata.creationTimestamp）.</p>
+</blockquote>
+<blockquote>
+<p>Write the second command to /opt/course/5/find_pods_uid.sh, It lists by field metadata.uid Sort all of Pod. Use&hellip; For both commands kubectl Sort .</p>
+</blockquote>
+<h2 id="storage--persistent-volumes-and-mounts">Storage ： Persistent volumes and mounts</h2>
+<blockquote>
+<p>Create a file called  <code>safari-pv</code> The new  <code>PersistentVolume</code>. It should have 2Gi The capacity of 、<code>accessMode</code> <code>ReadWriteOnce</code>、<code>hostPath</code> <code>/Volumes/Data</code> And there&rsquo;s no definition of  <code>storageClassName</code>.</p>
+</blockquote>
+<blockquote>
+<p>Next, in the namespace  <code>project-tiger</code> Create a name in  <code>safari-pvc</code> The new  <code>PersistentVolumeClaim</code>. It should ask 2Gi Storage ,<code>accessMode</code> <code>ReadWriteOnce</code> And it should not be defined  <code>storageClassName</code>. PVC It should be properly bound to PV.</p>
+</blockquote>
+<blockquote>
+<p>Finally, in the namespace  <code>project-tiger</code> Create a new Deployment <code>safari</code>, It mounts the volume to  <code>/tmp/safari-data</code>. The Deployment Of Pod It should be a mirror image httpd:2.4.41-alpine.</p>
+</blockquote>
+<h2 id="kubectl-command-and-context">kubectl Command and context</h2>
+<blockquote>
+<p>Can pass kubectl Context accesses multiple clusters from the primary terminal . Write all of these context names to /opt/course/1/contexts.</p>
+</blockquote>
+<blockquote>
+<p>The next in /opt/course/1/context_default_kubectl.sh Write a command to display the current context in , The command should use kubectl.</p>
+</blockquote>
+<blockquote>
+<p>Last in /opt/course/1/context_default_no_kubectl.sh Write a second command to perform the same operation in , But don&rsquo;t use kubectl.</p>
+</blockquote>
+<h2 id="the-workload--shrinkage-capacity">The workload ： Shrinkage capacity</h2>
+<blockquote>
+<p>Namespace  <code>project-c13</code> Two of them are called  <code>o3db-*</code> Of Pod. C13 Management demands that Pod Reduce to one copy to save resources . Record the action .</p>
+</blockquote>
+<h2 id="application-ready-and-live">Application ready and live</h2>
+<blockquote>
+<p>In namespace  <code>default</code> Do the following . by  <code>nginx:1.16.1-alpine</code> Create a file called  <code>ready-if-service-ready</code> Of Pod. To configure a  <code>LivenessProbe</code>, It&rsquo;s just running  <code>true</code>. And one more  <code>ReadinessProbe</code> To check  <code>url</code> <code>http://service-am-i-ready:80</code> Whether it can reach , have access to  <code>wget -T2 -O- http://service-am-i-ready:80</code>. start-up Pod And make sure it&rsquo;s because  <code>ReadinessProbe</code> And not ready .</p>
+</blockquote>
+<h2 id="colony--control-plane">colony ： Control plane</h2>
+<p><strong>question</strong></p>
+<blockquote>
+<p>Use  <code>ssh cluster1-master1</code> ssh Enter the master node . Check master Components kubelet、kube-apiserver、kube-scheduler、kube-controller-manager and etcd How to be in master Start on the node / install . And find out DNS The name of the application and how it started on the master node / Installed .</p>
+</blockquote>
+<blockquote>
+<p>Write the results to a file /opt/course/8/master-components.txt. The structure of the document should be as follows ：</p>
+</blockquote>
+<pre><code class="language-tex"># /opt/course/8/master-components.txt
+kubelet: [TYPE]
+kube-apiserver: [TYPE]
+kube-scheduler: [TYPE]
+kube-controller-manager: [TYPE]
+etcd: [TYPE]
+dns: [TYPE] [NAME]
+
+Choices of [TYPE] are: not-installed, process, static-pod, pod
+</code></pre>
+<p><strong>answer</strong></p>
+<h2 id="colony-pod-dispatch">colony ：Pod Dispatch</h2>
+<p><strong>question</strong></p>
+<blockquote>
+<p>Use  <code>ssh cluster2-master1</code> ssh Enter the master node . For the time being  <code>kube-scheduler</code>, That means you can start it again later .</p>
+</blockquote>
+<blockquote>
+<p>For the mirror  <code>httpd:2.4-alpine</code> Create a file called  <code>manual-schedule</code> Of Pod, Confirm that it is started but not scheduled on any node .</p>
+</blockquote>
+<blockquote>
+<p>Now you are the dispatcher and have all the power , At the node  <code>cluster2-master1</code> Manually schedule the Pod. Make sure it&rsquo;s running .</p>
+</blockquote>
+<blockquote>
+<p>Start again  <code>kube-scheduler</code> And through the mirror image  <code>httpd:2.4-alpine</code> Create a second one called  <code>manual-schedule2</code> Of Pod And check if it&rsquo;s in  <code>cluster2-worker1</code> To make sure it&rsquo;s working properly .</p>
+</blockquote>
+<p><strong>answer</strong></p>
+<h2 id="colony--backup-and-recovery">colony ： Backup and recovery</h2>
+<blockquote>
+<p>Yes  <code>cluster3-master1</code> Running on etcd Make a backup , And save it in the  <code>/tmp/etcd-backup.db</code>.</p>
+</blockquote>
+<blockquote>
+<p>Then create one in the cluster that you like Pod.</p>
+</blockquote>
+<blockquote>
+<p>Finally, restore the backup , Confirm that the cluster is still working and created Pod No longer with us .</p>
+</blockquote>
+<h2 id="security--network-strategy">Security ： Network strategy</h2>
+<blockquote>
+<p>There was a security incident , Intruders are able to hack from a back end Pod Access the entire cluster .</p>
+</blockquote>
+<blockquote>
+<p>To prevent this , In namespace  <code>project-snake</code> Create a name in  <code>np-backend</code> Of  <code>NetworkPolicy</code>. It should only allow  <code>backend-*</code> Pods：</p>
+</blockquote>
+<blockquote>
+<p>Connect to port  <code>1111</code> Upper  <code>db1-*</code> Pod Connect to port  <code>2222</code> Upper  <code>db2-*</code> Pod Use&hellip; In strategy Pod Application tags for .</p>
+</blockquote>
+<blockquote>
+<p>After implementation , for example , port 3333 From  <code>backend-*</code> Pod To  <code>vault-*</code> Pod The connection for should no longer be valid .</p>
+</blockquote>
+<h2 id="colony-kubelet-starting-mode">colony ：kubelet Starting mode</h2>
+<blockquote>
+<p>node  <code>cluster2-worker1</code> Already used kubeadm and TLS Bootstrap added to cluster . find  <code>cluster2-worker1</code> Of “Issuer” and “Extended Key Usage” value ： kubelet Client certificate , Used to connect outward to kube-apiserver Certificate . kubelet Server certificate , Used to come from kube-apiserver The incoming connection of . Write information to a file  <code>/opt/course/23/certificate-info.txt</code>.</p>
+</blockquote>
+<h2 id="colony--certificate">colony ： certificate</h2>
+<blockquote>
+<p>Check kube-apiserver The server certificate is in  <code>cluster2-master1</code> The period of validity on . Use openssl or cfssl Do this . Write the due date to  <code>/opt/course/22/expiration</code>.</p>
+</blockquote>
+<blockquote>
+<p>And run the right kubeadm Command to list the due date and confirm that both methods display the same date .</p>
+</blockquote>
+<blockquote>
+<p>Will be updated apiserver The server certificate is correct kubeadm Command write  <code>/opt/course/22/kubeadm-renew-certs.sh</code>.</p>
+</blockquote>
+<h2 id="colony--upgrade-nod">colony ： Upgrade nod</h2>
+<blockquote>
+<p>Your colleagues say  <code>cluster3-worker2</code> Running older Kubernetes edition , Not even part of the cluster . take kubectl and kubeadm Update to in  <code>cluster3-master1</code> The exact version running on . Then add the node to the cluster , You can use kubeadm.</p>
+</blockquote>
+<h2 id="docker-command">Docker command</h2>
+<blockquote>
+<p>In namespace  <code>project-tiger</code> Create a name in  <code>Tigers-reunite</code> Of Pod Mirror image  <code>httpd:2.4.41-alpine</code>, The label is  <code>pod=container</code> and  <code>container=pod</code>. find Pod Which node is arranged on .ssh Enter the node and find the one that belongs to the Pod Of docker Containers .</p>
+</blockquote>
+<blockquote>
+<p>The container of docker ID And these running processes / Command write  <code>/opt/course/17/pod-container.txt</code>.</p>
+</blockquote>
+<blockquote>
+<p>Last , Use docker The order will be that the Lord Docker Containers （ come from yaml The one named in ） Log write to  <code>/opt/course/17/pod-container.log</code>.</p>
+</blockquote>
+
+</article>
+
+
+      
+        <div class="my-4">
+    
+    <a href="/tags/kubernetes/" class="inline-block bg-tertiary-bg text-sm rounded px-3 py-1 my-1 me-2 hover:text-eureka">#kubernetes</a>
+    
+</div>
+      
+
+      
+
+
+
+      
+        <div class="py-2">
+  
+    <div class="my-8 flex flex-col items-center md:flex-row">
+      <a href="/authors/%E4%BA%91%E5%8E%9F%E7%94%9F%E9%A9%BF%E7%AB%99/" class="md:me-4 text-primary-text h-24 w-24">
+        
+        
+          <i class="fas fa-user-circle fa-6x"></i>
+        
+      </a>
+      <div class="mt-4 w-full md:mt-0 md:w-auto">
+        <a
+          href="/authors/%E4%BA%91%E5%8E%9F%E7%94%9F%E9%A9%BF%E7%AB%99/"
+          class="mb-2 block border-b pb-1 text-lg font-bold"
+        >
+          <h3>云原生驿站</h3>
+        </a>
+        <span class="block pb-2"></span>
+        
+      </div>
+    </div>
+  
+</div>
+
+      
+
+      
+
+      
+
+
+
+    </div>
+    
+      <div class="col-span-2">
+        
+          
+<div class="bg-secondary-bg prose max-w-none rounded p-6">
+  <h3>Series of Posts</h3>
+  
+    
+      <a href="/posts/cka-practice/" class="no-underline">CKA模拟器练习题</a>
+      <br />
+    
+  
+</div>
+
+        
+        
+      </div>
+    
+
+    
+    
+  </div>
+
+  
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        hljs.initHighlightingOnLoad();
+      });
+    </script>
+
+          </div>
+        </div>
+      
+    </main>
+    <footer class="pl-scrollbar">
+      <div class="mx-auto w-full max-w-screen-xl"><div class="text-center p-6 pin-b">
+    <p class="text-sm text-tertiary-text">&copy; 2021 <a href="https://www.wangchucheng.com/">WANG Chucheng</a> and <a href="https://www.ruiqima.com/">MA Ruiqi</a>
+ &middot;  Powered by the <a href="https://github.com/wangchucheng/hugo-eureka" class="hover:text-eureka">Eureka</a> theme for <a href="https://gohugo.io" class="hover:text-eureka">Hugo</a></p>
+</div></div>
+    </footer>
+  </body>
+</html>
