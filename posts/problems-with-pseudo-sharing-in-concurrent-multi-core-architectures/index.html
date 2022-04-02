@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  dir="ltr"
+  
+><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<title>伪共享在多核架构并发下所带来的问题 | 云原生驿站</title>
+
+<meta name="generator" content="Hugo Eureka 0.9.1" />
+<link rel="stylesheet" href="/css/eureka.min.6a378a23360d238dc3ef4df2f5cd718093f02c10c9c7eb2437c29701cd8d389ab6da5d9f21bdd3afa305fd56c1235017.css" integrity="sha384-ajeKIzYNI43D703y9c1xgJPwLBDJx&#43;skN8KXAc2NOJq22l2fIb3Tr6MF/VbBI1AX">
+<script defer src="/js/eureka.min.f1639ee98d6cbd85b2b5f034d27320da962002ff83159ed4e01dbc5948c42a1ab26c2d6e74c66e93f5cec4d24dbd166d.js" integrity="sha384-8WOe6Y1svYWytfA00nMg2pYgAv&#43;DFZ7U4B28WUjEKhqybC1udMZuk/XOxNJNvRZt"></script>
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload"
+  href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Noto+Serif+SC:wght@400;600;700&display=swap"
+  as="style" onload="this.onload=null;this.rel='stylesheet'">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/base16/solarized-light.min.css"
+   media="print"
+  onload="this.media='all';this.onload=null" crossorigin>
+<script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/highlight.min.js"
+   crossorigin></script>
+  <script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/languages/dart.min.js"
+     crossorigin></script>
+
+
+<script defer type="text/javascript" src="/js/fontawesome.min.556d8a720c2607066000ad1cb5cbdc4da8e61b339cf7b111c2cea521185d942db885a421557699c1c26cddd4ea8a76b2.js" integrity="sha384-VW2KcgwmBwZgAK0ctcvcTajmGzOc97ERws6lIRhdlC24haQhVXaZwcJs3dTqinay"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.css"
+   integrity="sha384-MlJdn/WNKDGXveldHDdyRP1R4CTHr3FeuDNfhsLPYrq2t0UBkUdK2jyTnXPEK1NQ"  media="print"
+  onload="this.media='all';this.onload=null" crossorigin>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.js" 
+  integrity="sha384-VQ8d8WVFw0yHhCk5E8I86oOhv48xLpnDZx5T9GogA/Y84DcCKWXDmSDfn13bzFZY"  crossorigin></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/contrib/auto-render.min.js"
+   integrity="sha384-&#43;XBljXPPiv&#43;OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR"  crossorigin></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "$", right: "$", display: false },
+        { left: "\\(", right: "\\)", display: false },
+        { left: "\\[", right: "\\]", display: true }
+      ],
+    });
+  });
+</script>
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/mermaid@8.14.0/dist/mermaid.min.js" 
+  integrity="sha384-atOyb0FxAgN9LyAc6PEf9BjgwLISyansgdH8/VXQH8p2o5vfrRgmGIJ2Sg22L0A0"  crossorigin></script>
+
+
+<link rel="icon" type="image/png" sizes="32x32" href="/images/icon_hu64421c6c7700f606f0ad45d807017b09_5843_32x32_fill_box_center_3.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/icon_hu64421c6c7700f606f0ad45d807017b09_5843_180x180_fill_box_center_3.png">
+
+<meta name="description"
+  content="主流的多核处理器均采用共享内存，但访问内存耗时较长，因此在CPU和内存之间设立了高速缓存，一个典型的高速缓存架构如图所示，分为L1、L2、L3 Cache。">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+      "@type": "ListItem",
+      "position": 1 ,
+      "name":"文章",
+      "item":"/posts/"},{
+      "@type": "ListItem",
+      "position": 2 ,
+      "name":"伪共享在多核架构并发下所带来的问题",
+      "item":"/posts/problems-with-pseudo-sharing-in-concurrent-multi-core-architectures/"}]
+}
+</script>
+
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "/posts/problems-with-pseudo-sharing-in-concurrent-multi-core-architectures/"
+    },
+    "headline": "伪共享在多核架构并发下所带来的问题 | 云原生驿站","datePublished": "2022-01-20T00:00:00+00:00",
+    "dateModified": "2022-01-20T00:00:00+00:00",
+    "wordCount":  207 ,
+    "author": {
+        "@type": "Person",
+        "name": ["云原生驿站"]
+    },
+    "publisher": {
+        "@type": "Person",
+        "name": "吴典秋",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "/images/icon.png"
+        }
+        },
+    "description": "主流的多核处理器均采用共享内存，但访问内存耗时较长，因此在CPU和内存之间设立了高速缓存，一个典型的高速缓存架构如图所示，分为L1、L2、L3 Cache。"
+}
+</script><meta property="og:title" content="伪共享在多核架构并发下所带来的问题 | 云原生驿站" />
+<meta property="og:type" content="article" />
+
+
+<meta property="og:image" content="/images/icon.png">
+
+
+<meta property="og:url" content="/posts/problems-with-pseudo-sharing-in-concurrent-multi-core-architectures/" />
+
+
+
+<meta property="og:description" content="主流的多核处理器均采用共享内存，但访问内存耗时较长，因此在CPU和内存之间设立了高速缓存，一个典型的高速缓存架构如图所示，分为L1、L2、L3 Cache。" />
+
+
+
+<meta property="og:locale" content="en" />
+
+
+
+
+<meta property="og:site_name" content="云原生驿站" />
+
+
+
+
+
+
+<meta property="article:published_time" content="2022-01-20T00:00:00&#43;00:00" />
+
+
+<meta property="article:modified_time" content="2022-01-20T00:00:00&#43;00:00" />
+
+
+
+<meta property="article:section" content="posts" />
+
+
+<meta property="article:tag" content="os" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <body class="flex min-h-screen flex-col">
+    <header
+      class="min-h-16 pl-scrollbar bg-secondary-bg fixed z-50 flex w-full items-center shadow-sm"
+    >
+      <div class="mx-auto w-full max-w-screen-xl"><script>
+    let storageColorScheme = localStorage.getItem("lightDarkMode")
+    if (((storageColorScheme == 'Auto' || storageColorScheme == null) && window.matchMedia("(prefers-color-scheme: dark)").matches) || storageColorScheme == "Dark") {
+        document.getElementsByTagName('html')[0].classList.add('dark')
+    }
+</script>
+<nav class="flex items-center justify-between flex-wrap px-4 py-4 md:py-0">
+    <a href="/" class="me-6 text-primary-text text-xl font-bold">云原生驿站</a>
+    <button id="navbar-btn" class="md:hidden flex items-center px-3 py-2" aria-label="Open Navbar">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <div id="target"
+        class="hidden block md:flex md:grow md:justify-between md:items-center w-full md:w-auto text-primary-text z-20">
+        <div class="md:flex md:h-16 text-sm md:grow pb-4 md:pb-0 border-b md:border-b-0">
+            <a href="/#about" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  border-transparent  me-4">关于我</a>
+            <a href="/posts/" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  selected-menu-item  me-4">文章</a>
+            <a href="/docs/" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  border-transparent  me-4">文档</a>
+        </div>
+
+        <div class="flex">
+            <div class="relative pt-4 md:pt-0">
+                <div class="cursor-pointer hover:text-eureka" id="lightDarkMode">
+                    <i class="fas fa-adjust"></i>
+                </div>
+                <div class="fixed hidden inset-0 opacity-0 h-full w-full cursor-default z-30" id="is-open">
+                </div>
+                <div class="absolute flex flex-col start-0 md:start-auto end-auto md:end-0 hidden bg-secondary-bg w-48 rounded py-2 border border-tertiary-bg cursor-pointer z-40"
+                    id='lightDarkOptions'>
+                    <span class="px-4 py-1 hover:text-eureka" name="Light">Light</span>
+                    <span class="px-4 py-1 hover:text-eureka" name="Dark">Dark</span>
+                    <span class="px-4 py-1 hover:text-eureka" name="Auto">Auto</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="fixed hidden inset-0 opacity-0 h-full w-full cursor-default z-0" id="is-open-mobile">
+    </div>
+
+</nav>
+<script>
+    
+    let element = document.getElementById('lightDarkMode')
+    if (storageColorScheme == null || storageColorScheme == 'Auto') {
+        document.addEventListener('DOMContentLoaded', () => {
+            window.matchMedia("(prefers-color-scheme: dark)").addEventListener('change', switchDarkMode)
+        })
+    } else if (storageColorScheme == "Light") {
+        element.firstElementChild.classList.remove('fa-adjust')
+        element.firstElementChild.setAttribute("data-icon", 'sun')
+        element.firstElementChild.classList.add('fa-sun')
+    } else if (storageColorScheme == "Dark") {
+        element.firstElementChild.classList.remove('fa-adjust')
+        element.firstElementChild.setAttribute("data-icon", 'moon')
+        element.firstElementChild.classList.add('fa-moon')
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        getcolorscheme();
+        switchBurger();
+    });
+</script>
+</div>
+    </header>
+    <main class="grow pt-16">
+        <div class="pl-scrollbar">
+          <div class="mx-auto w-full max-w-screen-xl lg:px-4 xl:px-8">
+  
+  
+  <div class="grid grid-cols-2 gap-4 lg:grid-cols-8 lg:pt-12">
+    <div
+      class=" bg-secondary-bg col-span-2 rounded px-6 py-8 lg:col-span-6"
+    >
+      <article class="prose">
+  <h1 class="mb-4">伪共享在多核架构并发下所带来的问题</h1>
+
+  <div
+  class="text-tertiary-text not-prose mt-2 flex flex-row flex-wrap items-center"
+>
+  <div class="me-6 my-2">
+    <i class="fas fa-calendar me-1"></i>
+    <span
+      >2022-01-20</span
+    >
+  </div>
+  <div class="me-6 my-2">
+    <i class="fas fa-clock me-1"></i>
+    <span>1 min read</span>
+  </div>
+
+  
+    <div class="me-6 my-2">
+      <i class="fas fa-folder me-1"></i>
+      
+        <a href="/categories/cache/" class="hover:text-eureka"
+          >cache</a
+        >
+      
+    </div>
+  
+
+  
+    <div class="me-6 my-2">
+      <i class="fas fa-th-list me-1"></i>
+      
+        <a href="/series/operator-system/" class="hover:text-eureka"
+          >operator system</a
+        >
+      
+    </div>
+  
+</div>
+
+
+  
+  
+
+  <h2 id="1多核架构下的缓存架构">1.多核架构下的缓存架构</h2>
+<p>主流的多核处理器均采用共享内存，但访问内存耗时较长，因此在CPU和内存之间设立了高速缓存，一个典型的高速缓存架构如图所示，分为L1、L2、L3 Cache。</p>
+<ol>
+<li>多个核心对同一缓存行的高频修改会导致严重的性能开销，影响多核的可扩展性。由于缓存一致性协议同一时刻只允许一个核心独占修改该缓存行，会造成多核执行流串行化，无法充分发挥出多核的性能优势；此外，多个核心对于同一缓存行的高频修改还会导致高速互联总线中产生大量缓存一致性流量，从而造成性能瓶颈。</li>
+<li>伪共享(False Sharing)。伪共享是指本身无需在多核之间共享的内容被错误地划分到同一个缓存行中，并引起了多核环境下对于单一缓存行的竞争，从而导致无谓的性能开销。</li>
+</ol>
+<p><img src="http://img.waibizi.com/2022-notes/January/Problems%20with%20pseudo-sharing%20in%20concurrent%20multi-core%20architectures/cpu%20cache%20architecture.png" alt="image-20220120201522296"></p>
+<h2 id="2缓存一致性">2.缓存一致性</h2>
+<p>Cache 一致性协议
+Cache的一致性要解决的问题可以用以下情况简要表达：</p>
+<p>处理器A与处理器B分别拥有地址为0x0000000F的数据的缓存100。当T1时刻，处理器A修改了100为101，但是没有写回主存。当T2时刻，处理器B取地址A的数据并将其+1。当T3时候，处理器A与处理器B都进行写回。</p>
+<p>这个简单的流程中，出现了几个严重的问题：</p>
+<p>在T2时刻，处理器B读取地址A的数据不是最新的数据。
+在T3时刻，如果没有一个一致性协议来维护的话，这时候就出现了三个版本的地址A的值：100,101,102。写回后也无法预测内容中保存的值为多少。</p>
+<p>涉及到这种多处理器共享存储器的情况，有两个概念来保证其数据的正确：</p>
+<ul>
+<li>一致性（coherence） 一致性用于保证在一个处理器写了数据之<strong>后</strong>，另外的处理器读取的数据是写入的数据。包括了写入操作可串行化等。</li>
+<li>连贯性（consistency）连贯性确定了一个写入值什么时候能够被看到。</li>
+</ul>
+<p>类似读写锁，多个处理器拥有同一地址的数据的缓存，如果仅仅进行读操作的话，不会导致任何问题。但是一旦进行写，问题就出现了。传统读写锁的解决方法是阻塞新的读，并等待现在的读完了再进行写操作，这是一种趋向被动的思路，被动等所有读者读完后才开始写。但是缓存中无法判断是否一个缓存块已经读完，只有在被当成victim的时候换出去的时候才能察觉。很显然这种被动的策略是不科学的。针对缓存这种场景，应该设计一种主动告知的方法，告诉其他处理器这块缓存块已经更新了，不能继续从里面读取数据，而是需要想办法来取到这个地址的最新值。</p>
+<p>缓存一致性模型就是顺着这个思路，设计了两种主动告知的策略：<strong>监听式（Snooping Coherence Protocals) 与 目录式 (Directory Protocol)。</strong></p>
+<h3 id="监听式snooping-coherence-protocals">监听式（Snooping Coherence Protocals)</h3>
+<p>监听式一致性协议是利用总线广播 (broadcast) 机制来实现的, 是Cache一致性协议最早的实现方式.系统中的所有高速缓存控制器都需要侦听系统中的一致性消息, 以此来确定是否有一致性请求.最为经典的监听式一致性协议是MESI。</p>
+<h3 id="目录式-directory-protocol">目录式 (Directory Protocol)</h3>
+<p>目录一致性协议使用目录来全局记录缓存状态, 包括数据的共享者列表、一致性状态等.在目录一致性协议中, 目录充当了定序点的角色.消息的传输是以点对点的方式进行的, 即, 所有一致性消息通过一个目录结构来转发处理, 因此, 它可以有效地降低一致性消息对网络带宽的需求。</p>
+<p>经典的一致性协议-MESI协议</p>
+<p>MESI协议也称为Illinois MESI协议, 是一种非常典型的缓存一致性协议.协议以缓存块的4种状态命名.</p>
+<ul>
+<li>失效（Invalid）缓存段，要么已经不在缓存中，要么它的内容已经过时。为了达到缓存的目的，这种状态的段将会被忽略。一旦缓存段被标记为失效，那效果就等同于它从来没被加载到缓存中。</li>
+<li>共享（Shared）缓存段，它是和主内存内容保持一致的一份拷贝，在这种状态下的缓存段只能被读取，不能被写入。多组缓存可以同时拥有针对同一内存地址的共享缓存段，这就是名称的由来。</li>
+<li>独占（Exclusive）缓存段，和S状态一样，也是和主内存内容保持一致的一份拷贝。区别在于，如果一个处理器持有了某个E状态的缓存段，那其他处理器就不能同时持有它，所以叫“独占”。这意味着，如果其他处理器原本也持有同一缓存段，那么它会马上变成“失效”状态。</li>
+<li>已修改（Modified）缓存段，属于脏段，它们已经被所属的处理器修改了。如果一个段处于已修改状态，那么它在其他处理器缓存中的拷贝马上会变成失效状态，这个规律和E状态一样。此外，已修改缓存段如果被丢弃或标记为失效，那么先要把它的内容回写到内存中——这和回写模式下常规的脏段处理方式一样。</li>
+</ul>
+<p>MESI协议是一个合适的状态机，既能处理来自本地处理器的请求，也能把信息广播到总线上。这里强调两点：</p>
+<ul>
+<li>在多核系统中，读取某个缓存段，实际上会牵涉到和其他处理器的通讯，并且可能导致它们发生内存传输。写某个缓存段需要多个步骤：在你写任何东西之前，你首先要获得独占权，以及所请求的缓存段的当前内容的拷贝（所谓的“带权限获取的读（Read For Ownership）”请求）。</li>
+<li>尽管我们为了一致性问题做了额外的工作，但是最终结果还是非常有保证的。即它遵守 MESI定律：在所有的脏缓存段（M状态）被回写后，任意缓存级别的所有缓存段中的内容，和它们对应的内存中的内容一致。此外，在任意时刻，当某个位置的内存被一个处理器加载为独占缓存段时（E状态），那它就不会再出现在其他任何处理器的缓存中。</li>
+</ul>
+<p>注意，这其实就是回写定律加上独占规则而已。其实MESI协议或多核系统的存在根本没有弱化我们现有的内存模型。</p>
+<h2 id="3伪共享">3.伪共享</h2>
+<p>CPU缓存是以缓存行（Cache line）为最小数据单位，缓存行是2的整数幂个连续字节，主流大小是64个字节。如果多个变量同属于一个缓存行，在并发环境下同时修改，因为写屏障及内存一致性协议会导致同一时间只能一个线程操作该缓存行，进而因为竞争导致性能下降，这就是“伪共享”。“伪共享”是高并发场景下一个底层细节问题。</p>
+<p><img src="http://img.waibizi.com/2022-notes/January/Problems%20with%20pseudo-sharing%20in%20concurrent%20multi-core%20architectures/cpu%20cache%20architecture.png" alt="image-20220120201923491"></p>
+<p>线程 0 和线程 1 会用到不同变量，它们在内存中彼此相邻，并驻留在同一高速缓存块（Cache Block，或Cache Line）。 高速缓存行被加载到 CPU 0 和 CPU 1 的高速缓存中（灰色箭头）。 尽管这些线程修改的是不同变量（红色和蓝色箭头），高速缓存行（Cache Block，或Cache Line）仍会无效，并强制内存更新以维持高速缓存的一致性，这会降低应用性能。</p>
+<p>下面我们用一个简单demo程序来检验一下缓存行锁带来的问题</p>
+<pre><code class="language-c++">// data_race.cpp
+#include &lt;pthread.h&gt;
+#include &lt;algorithm&gt;    // std::for_each
+#include&lt;vector&gt;
+#include &lt;functional&gt;
+using namespace std;
+// 设置CPU的亲和性
+bool SetCPUaffinity(int param){
+    cpu_set_t mask;         // CPU核的集合
+    CPU_ZERO(&amp;mask);        // 置空
+    CPU_SET(param,&amp;mask);   // 设置亲和力值,第一个参数为零的时候默认为调用线程
+    sched_setaffinity(0, sizeof(mask), &amp;mask); // 设置线程CPU亲和力
+}
+
+int num0;
+int num1;
+
+void* thread0(void*){
+    SetCPUaffinity(0);
+    int count = 100000000;  // 1亿
+    while(count--){
+        num0++;
+    }
+    return NULL;
+}
+
+void* thread1(void*){
+    SetCPUaffinity(1);
+    int count = 100000000;
+    while(count--){
+        num1++;
+    }
+    return NULL;
+}
+
+int main(){
+    pthread_t pids[2];
+    pthread_create(&amp;pids[0], NULL, thread0, NULL);
+    pthread_create(&amp;pids[1], NULL, thread1, NULL);
+    pthread_join(pids[0], NULL);
+    pthread_join(pids[1], NULL);
+    return 0;
+}
+</code></pre>
+<p>运行测试</p>
+<pre><code class="language-shell">gcc data_race.cpp -lpthread -o data_race
+time ./data_race
+</code></pre>
+<p><img src="http://img.waibizi.com/2022-notes/January/Problems%20with%20pseudo-sharing%20in%20concurrent%20multi-core%20architectures/code-result-1.png" alt="image-20220120192718334"></p>
+<p>修改一下代码，将main函数修改为如下</p>
+<pre><code class="language-c++">int main(){
+    pthread_t pids[2];
+    pthread_create(&amp;pids[0], NULL, thread0, NULL);
+    pthread_join(pids[0], NULL);
+    pthread_create(&amp;pids[1], NULL, thread1, NULL);
+    pthread_join(pids[1], NULL);
+    return 0;
+}
+</code></pre>
+<pre><code class="language-shell">gcc data_race.cpp -lpthread -o data_race
+time ./data_race
+</code></pre>
+<p><img src="http://img.waibizi.com/2022-notes/January/Problems%20with%20pseudo-sharing%20in%20concurrent%20multi-core%20architectures/code-result-2.png" alt="image-20220120192817331"></p>
+<p>伪共享不仅不会提升系统性能，因为对于单一缓存行存在竞争关系，随着核数的增多，会出现性能断崖的问题</p>
+<h3 id="单一缓存行竞争">单一缓存行竞争</h3>
+<p>在多个核心中执行一个线程，竞争一个全局的互斥锁，并更新一个全局计数器。如图所示，当核数量提升到一定数量时，性能会出现断崖式下跌。</p>
+<p><img src="http://img.waibizi.com/2022-notes/January/Problems%20with%20pseudo-sharing%20in%20concurrent%20multi-core%20architectures/results%20analysis.png" alt="image-20220121151357536"></p>
+<p>由于自旋锁是通过修改全局单一变量 *lock 来获取和释放锁，因此多核对该缓存行进行高频修改时，缓存行的状态与拥有者也不断改变，最终消耗大量时间在缓存一致性协议上，导致互斥锁无法快速有效地在不同的核心之间传递。</p>
+
+</article>
+
+
+      
+        <div class="my-4">
+    
+    <a href="/tags/os/" class="inline-block bg-tertiary-bg text-sm rounded px-3 py-1 my-1 me-2 hover:text-eureka">#os</a>
+    
+</div>
+      
+
+      
+
+
+
+      
+        <div class="py-2">
+  
+    <div class="my-8 flex flex-col items-center md:flex-row">
+      <a href="/authors/%E4%BA%91%E5%8E%9F%E7%94%9F%E9%A9%BF%E7%AB%99/" class="md:me-4 text-primary-text h-24 w-24">
+        
+        
+          <i class="fas fa-user-circle fa-6x"></i>
+        
+      </a>
+      <div class="mt-4 w-full md:mt-0 md:w-auto">
+        <a
+          href="/authors/%E4%BA%91%E5%8E%9F%E7%94%9F%E9%A9%BF%E7%AB%99/"
+          class="mb-2 block border-b pb-1 text-lg font-bold"
+        >
+          <h3>云原生驿站</h3>
+        </a>
+        <span class="block pb-2"></span>
+        
+      </div>
+    </div>
+  
+</div>
+
+      
+
+      
+  <div
+    class="-mx-2 mt-4 flex flex-col border-t px-2 pt-4 md:flex-row md:justify-between"
+  >
+    <div>
+      
+        <span class="text-primary-text block font-bold"
+          >Previous</span
+        >
+        <a href="/posts/cka-practice/" class="block">CKA模拟器练习题</a>
+      
+    </div>
+    <div class="mt-4 md:mt-0 md:text-right">
+      
+    </div>
+  </div>
+
+
+      
+
+
+
+    </div>
+    
+      <div class="col-span-2">
+        
+          
+<div class="bg-secondary-bg prose max-w-none rounded p-6">
+  <h3>Series of Posts</h3>
+  
+    
+      <a href="/posts/problems-with-pseudo-sharing-in-concurrent-multi-core-architectures/" class="no-underline">伪共享在多核架构并发下所带来的问题</a>
+      <br />
+    
+  
+</div>
+
+        
+        
+      </div>
+    
+
+    
+    
+  </div>
+
+  
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        hljs.initHighlightingOnLoad();
+      });
+    </script>
+
+          </div>
+        </div>
+      
+    </main>
+    <footer class="pl-scrollbar">
+      <div class="mx-auto w-full max-w-screen-xl"><div class="text-center p-6 pin-b">
+    <p class="text-sm text-tertiary-text">&copy; 2022 云原生驿站
+ &middot;  Powered by the <a href="https://github.com/wangchucheng/hugo-eureka" class="hover:text-eureka">Eureka</a> theme for <a href="https://gohugo.io" class="hover:text-eureka">Hugo</a></p>
+</div></div>
+    </footer>
+  </body>
+</html>

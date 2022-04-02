@@ -1,24 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>云原生驿站</title>
-    <link>/authors/%E4%BA%91%E5%8E%9F%E7%94%9F%E9%A9%BF%E7%AB%99/</link>
-    <description>Recent content on 云原生驿站</description>
+    <title>os on 云原生驿站</title>
+    <link>/tags/os/</link>
+    <description>Recent content in os on 云原生驿站</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>&amp;copy; 2022 云原生驿站
 </copyright>
-    <lastBuildDate>Tue, 29 Mar 2022 00:00:00 +0000</lastBuildDate><atom:link href="/authors/%E4%BA%91%E5%8E%9F%E7%94%9F%E9%A9%BF%E7%AB%99/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>CKA模拟器练习题</title>
-      <link>/posts/cka-practice/</link>
-      <pubDate>Tue, 29 Mar 2022 00:00:00 +0000</pubDate>
-      
-      <guid>/posts/cka-practice/</guid>
-      <description>CKA practice Storage ：Secret Use  stay secret Under the namespace , Mirror image busybox:1.31.1 Create a file called secret-pod Of pod, And guarantee that pod Run for a while
-  A name is sercret1.yaml Of Secret file , stay secret Create under the namespace Secret, And in a read-only way to Pod Of /tmp/secret1 Catalog Create a new Secret secret2 contain user=user1 and pass=1234, To alleviate the variables APP_USER and APP_PASS Input to Pod in</description>
-    </item>
-    
+    <lastBuildDate>Thu, 20 Jan 2022 00:00:00 +0000</lastBuildDate><atom:link href="/tags/os/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>伪共享在多核架构并发下所带来的问题</title>
       <link>/posts/problems-with-pseudo-sharing-in-concurrent-multi-core-architectures/</link>

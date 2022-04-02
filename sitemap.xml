@@ -38,6 +38,18 @@
     <loc>/posts/</loc>
     <lastmod>2022-04-02T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>/categories/cache/</loc>
+    <lastmod>2022-01-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/series/operator-system/</loc>
+    <lastmod>2022-01-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tags/os/</loc>
+    <lastmod>2022-01-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/posts/problems-with-pseudo-sharing-in-concurrent-multi-core-architectures/</loc>
+    <lastmod>2022-01-20T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>/authors/example-author/</loc>
   </url><url>
     <loc>/authors/hugo-authors/</loc>
