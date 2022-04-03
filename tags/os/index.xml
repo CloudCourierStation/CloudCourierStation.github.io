@@ -8,7 +8,28 @@
     <language>en</language>
     <copyright>&amp;copy; 2022 云原生驿站
 </copyright>
-    <lastBuildDate>Thu, 20 Jan 2022 00:00:00 +0000</lastBuildDate><atom:link href="/tags/os/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 29 Jan 2022 00:00:00 +0000</lastBuildDate><atom:link href="/tags/os/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>KVM的内存气球控制技术</title>
+      <link>/posts/kvm-memory-balloon-control-technology/</link>
+      <pubDate>Sat, 29 Jan 2022 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/kvm-memory-balloon-control-technology/</guid>
+      <description>前言 KVM的内存气球技术使得可以在虚拟机中按照需要调整的内存大小，提升内存的利用率。使用的时候，默认情况是需要安装virt balloon的驱动，内核开启CONFIG_VIRTIO_BALLOON。CentOS7默认已经开启了此选项，并且也安装了virtballoon驱动。
+1.安装启动KVM虚机 virt-install --name virtballoon-test --memory 8192 --disk CentOS7.8.raw,format=qcow2 \ &amp;gt; --import --os-type=linux --network bridge=brq899ea5be-a3,model=virtio \ &amp;gt; --graphics vnc,listen=0.0.0.0 --noautoconsole WARNING 未检测到操作系统，虚拟机性能可能会受到影响。使用 --os-variant 选项指定操作系统以获得最佳性能。 开始安装...... 域创建完成。  2.验证使用 virsh edit virtballoon-test  编辑KVM的xml,可以看到一下内存膨胀模块
+&amp;lt;memballoon model=&#39;virtio&#39;&amp;gt; &amp;lt;address type=&#39;pci&#39; domain=&#39;0x0000&#39; bus=&#39;0x00&#39; slot=&#39;0x05&#39; function=&#39;0x0&#39;/&amp;gt; &amp;lt;/memballoon&amp;gt;  balloon有两种类型：
+膨胀：虚拟机的内存被拿掉给宿主机
+压缩：宿主机的内存还给虚拟机
+气球技术最大优点是内存可以超用，缺点是可能造成内存不够用的而影响性能
+查看当前内存 virsh vncdisplay virtballoon-test  然后使用vnc连接宿主机的ip + vncdisplay出来的端口即可
+![image-20220129144953976](/Users/wudianqiu/Library/Application Support/typora-user-images/image-20220129144953976.png)
+不关机情况下，我们直接使用内存气球跳转一下内存
+virsh qemu-monitor-command virtballoon-test --hmp --cmd balloon 4096  再次查看一下虚机当中的内存
+![image-20220129145159494](/Users/wudianqiu/Library/Application Support/typora-user-images/image-20220129145159494.png)
+在宿主机也是可以直接查看到的
+virsh qemu-monitor-command virtballoon-test --hmp --cmd info balloon balloon: actual=4096  压缩测试了，那膨胀就顺便测一下吧</description>
+    </item>
+    
     <item>
       <title>伪共享在多核架构并发下所带来的问题</title>
       <link>/posts/problems-with-pseudo-sharing-in-concurrent-multi-core-architectures/</link>

@@ -38,13 +38,25 @@
     <loc>/posts/</loc>
     <lastmod>2022-04-02T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>/tags/kvm/</loc>
+    <lastmod>2022-01-29T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/series/kvm/</loc>
+    <lastmod>2022-01-29T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/categories/kvm/</loc>
+    <lastmod>2022-01-29T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/posts/kvm-memory-balloon-control-technology/</loc>
+    <lastmod>2022-01-29T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tags/os/</loc>
+    <lastmod>2022-01-29T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>/categories/cache/</loc>
     <lastmod>2022-01-20T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/series/operator-system/</loc>
-    <lastmod>2022-01-20T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>/tags/os/</loc>
     <lastmod>2022-01-20T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/posts/problems-with-pseudo-sharing-in-concurrent-multi-core-architectures/</loc>
