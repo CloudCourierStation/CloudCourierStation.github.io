@@ -6,17 +6,17 @@
     <description>Recent content on 云原生驿站</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <copyright>&amp;copy; 2022 云原生驿站
-</copyright>
+    <copyright>云原生驿站</copyright>
     <lastBuildDate>Tue, 29 Mar 2022 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>CKA模拟器练习题</title>
+      <title>CKA Simulator Kubernetes 1.23</title>
       <link>/posts/cka-practice/</link>
       <pubDate>Tue, 29 Mar 2022 00:00:00 +0000</pubDate>
       
       <guid>/posts/cka-practice/</guid>
-      <description>CKA practice Storage ：Secret Use  stay secret Under the namespace , Mirror image busybox:1.31.1 Create a file called secret-pod Of pod, And guarantee that pod Run for a while
-  A name is sercret1.yaml Of Secret file , stay secret Create under the namespace Secret, And in a read-only way to Pod Of /tmp/secret1 Catalog Create a new Secret secret2 contain user=user1 and pass=1234, To alleviate the variables APP_USER and APP_PASS Input to Pod in</description>
+      <description>Pre Setup Once you&amp;rsquo;ve gained access to your terminal it might be wise to spend ~1 minute to setup your environment. You could set these:
+alias k=kubectl # will already be pre-configured export do=&amp;quot;--dry-run=client -o yaml&amp;quot; # k get pod x $do export now=&amp;quot;--force --grace-period 0&amp;quot; # k delete pod x $now  Vim To make vim use 2 spaces for a tab edit ~/.vimrc to contain:
+set tabstop=2 set expandtab set shiftwidth=2  More setup suggestions are in the tips section.</description>
     </item>
     
     <item>
